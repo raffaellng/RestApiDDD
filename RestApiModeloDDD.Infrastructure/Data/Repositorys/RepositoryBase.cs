@@ -1,4 +1,5 @@
-﻿using RestApiModeloDDD.Domain.Core.Interfaces.Repositorys;
+﻿using Microsoft.EntityFrameworkCore;
+using RestApiModeloDDD.Domain.Core.Interfaces.Repositorys;
 
 namespace RestApiModeloDDD.Infrastructure.Data.Repositorys
 {
@@ -51,7 +52,7 @@ namespace RestApiModeloDDD.Infrastructure.Data.Repositorys
         {
             try
             {
-                sqlContext.Set<TEntity>().Update(obj);
+                sqlContext.Entry(obj).State = EntityState.Modified;
                 sqlContext.SaveChanges();
             }
             catch (Exception ex)
