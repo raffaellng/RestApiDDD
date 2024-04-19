@@ -7,15 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CrossCutting\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Autofac" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.15" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RestApiModeloDDD.Application\RestApiModeloDDD.Application.csproj" />
     <ProjectReference Include="..\RestApiModeloDDD.Domain.Core\RestApiModeloDDD.Domain.Core.csproj" />
+    <ProjectReference Include="..\RestApiModeloDDD.Domain.Services\RestApiModeloDDD.Domain.Services.csproj" />
     <ProjectReference Include="..\RestApiModeloDDD.Domain\RestApiModeloDDD.Domain.csproj" />
   </ItemGroup>
 
