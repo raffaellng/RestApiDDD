@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using RestApiModeloDDD.Infrastructure.CrossCutting.IOC;
+using RestApiModeloDDD.Infrastructure.Data;
 
 namespace RestApiModeloDDD.API
 {
@@ -7,6 +9,9 @@ namespace RestApiModeloDDD.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<SqlContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString")));
 
             // Add services to the container.
 
@@ -29,7 +34,6 @@ namespace RestApiModeloDDD.API
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
