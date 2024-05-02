@@ -43,6 +43,9 @@ namespace RestApiModeloDDD.Application
 
         public void Update(ClienteDto clienteDto)
         {
+            //if (_serviceCliente.GetById(clienteDto.Id) == null)
+            //    notfound;
+
             ClienteEntity clienteEntity = _mapperCliente.MapperDtoToEntity(clienteDto);
             _serviceCliente.Update(clienteEntity);
         }

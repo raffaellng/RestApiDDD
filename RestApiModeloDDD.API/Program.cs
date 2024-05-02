@@ -1,6 +1,14 @@
+using Autofac.Core;
 using Microsoft.EntityFrameworkCore;
-using RestApiModeloDDD.Infrastructure.CrossCutting.IOC;
+using RestApiModeloDDD.Application;
+using RestApiModeloDDD.Application.Interfaces;
+using RestApiModeloDDD.Application.Interfaces.Mappers;
+using RestApiModeloDDD.Application.Mappers;
+using RestApiModeloDDD.Domain.Core.Interfaces.Repositorys;
+using RestApiModeloDDD.Domain.Core.Interfaces.Services;
+using RestApiModeloDDD.Domain.Services;
 using RestApiModeloDDD.Infrastructure.Data;
+using RestApiModeloDDD.Infrastructure.Data.Repositorys;
 
 namespace RestApiModeloDDD.API
 {
@@ -10,8 +18,10 @@ namespace RestApiModeloDDD.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddDbContext<SqlContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString")));
+            //builder.Services.AddDbContext<SqlContext>(options =>
+            //    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString")));
+            var connection = builder.Configuration["SqlConnection:SqlConnectionString"];
+            builder.Services.AddDbContext<SqlContext>(options => options.UseSqlServer(connection));
 
             // Add services to the container.
 
@@ -20,7 +30,15 @@ namespace RestApiModeloDDD.API
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddScoped<ModuleIOC>();
+            builder.Services.AddScoped<IApplicationServiceClientes, ApplicationServiceCliente>();
+            builder.Services.AddScoped<IApplicationServiceProduto, ApplicationServiceProduto>();
+            builder.Services.AddScoped<IServiceCliente, ServiceCliente>();
+            builder.Services.AddScoped<IServiceProduto, ServiceProduto>();
+            builder.Services.AddScoped<IRepositoryCliente, RepositoryCliente>();
+            builder.Services.AddScoped<IRepositoryProduto, RepositoryProduto>();
+            builder.Services.AddScoped<IMapperCliente, MapperCliente>();
+            builder.Services.AddScoped<IMapperProduto, MapperProduto>();
+
 
             var app = builder.Build();
 
