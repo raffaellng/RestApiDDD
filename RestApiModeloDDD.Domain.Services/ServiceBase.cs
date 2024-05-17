@@ -7,6 +7,7 @@ namespace RestApiModeloDDD.Domain.Services
     {
         private readonly IRepositoryBase<TEntity> _repositoryBase;
 
+        //aqui e implementado a regra de negocio
         public ServiceBase(IRepositoryBase<TEntity> repositoryBase)
         {
             _repositoryBase = repositoryBase;
@@ -19,6 +20,7 @@ namespace RestApiModeloDDD.Domain.Services
 
         public void Delete(TEntity obj)
         {
+            ValidId(obj);
             _repositoryBase.Remove(obj);
         }
 
@@ -29,12 +31,32 @@ namespace RestApiModeloDDD.Domain.Services
 
         public TEntity GetById(int id)
         {
-            return _repositoryBase.GetById(id);
+            var entity = _repositoryBase.GetById(id);
+            return entity is null ? throw new Exception("ID não encontrado.") : entity;
         }
 
         public void Update(TEntity obj)
         {
+            ValidId(obj);
             _repositoryBase.Update(obj);
+        }
+
+        private void ValidId(TEntity obj)
+        {
+            var prop = typeof(TEntity).GetProperty("Id");
+
+            if (prop is null)
+                throw new Exception("O objeto não possui um ID válido.");
+
+            var id = prop.GetValue(obj);
+
+            if (id is null)
+                throw new Exception("ID não encontrado.");
+
+            var entity = _repositoryBase.GetById((int)id);
+
+            if (entity is null)
+                throw new Exception("ID não encontrado.");
         }
     }
 }

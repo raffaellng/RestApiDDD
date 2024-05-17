@@ -18,10 +18,12 @@ namespace RestApiModeloDDD.API
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //builder.Services.AddDbContext<SqlContext>(options =>
-            //    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnectionString")));
             var connection = builder.Configuration["SqlConnection:SqlConnectionString"];
-            builder.Services.AddDbContext<SqlContext>(options => options.UseSqlServer(connection));
+            builder.Services.AddDbContext<SqlContext>(options =>
+            {
+                options.UseSqlServer(connection);
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            });
 
             // Add services to the container.
 
