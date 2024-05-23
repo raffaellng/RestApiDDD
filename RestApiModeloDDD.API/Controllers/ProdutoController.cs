@@ -69,7 +69,7 @@ namespace RestApiModeloDDD.API.Controllers
                 if (produtoDto == null)
                     return NotFound();
 
-                _applicationServiceProduto.Add(produtoDto);
+                _applicationServiceProduto.Remove(produtoDto);
                 return Ok("Produto deletado com sucesso!");
             }
             catch (Exception ex)

@@ -14,7 +14,7 @@ namespace RestApiModeloDDD.Infrastructure.Data
         }
 
         public DbSet<ClienteEntity> Clientes { get; set; }
-        public DbSet<ProdutoEntity> Produtos { get; set; }
+        public DbSet<ProdutoEntity> Produto { get; set; }
 
         public override int SaveChanges()
         {

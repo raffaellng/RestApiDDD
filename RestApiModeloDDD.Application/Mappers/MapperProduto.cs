@@ -13,7 +13,8 @@ namespace RestApiModeloDDD.Application.Mappers
                 Id = produtoDto.Id,
                 Nome = produtoDto.Nome,
                 Quantidade = produtoDto.Quantidade,
-                Valor = produtoDto.Valor
+                Valor = produtoDto.Valor,
+                Disponivel = produtoDto.Disponivel
             };
             return produtoEntity;
         }
@@ -25,7 +26,8 @@ namespace RestApiModeloDDD.Application.Mappers
                 Id = produtoEntity.Id,
                 Nome = produtoEntity.Nome,
                 Quantidade = produtoEntity.Quantidade,
-                Valor = produtoEntity.Valor
+                Valor = produtoEntity.Valor,
+                Disponivel = produtoEntity.Disponivel
             };
 
             return produtoDto;
@@ -38,7 +40,8 @@ namespace RestApiModeloDDD.Application.Mappers
                 Id = x.Id,
                 Nome = x.Nome,
                 Quantidade = x.Quantidade,
-                Valor = x.Valor
+                Valor = x.Valor,
+                Disponivel = x.Disponivel
             });
 
             return dto;
